@@ -16,15 +16,16 @@
     
 </head>
 <body>
-    <div class="background_image" style="background-image:url({% static 'images/Log3.jpg' %})"></div>
+    <div class="background_image" style="background-image:url({% static 'images/Peach.jpg' %})"></div>
     <div class="container mt-5">
+        <br> <br>
         <h4 class="text-center"> Login </h4>
         <form action="login" method="post" class="text-center">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="username"><br>
-            <input type="password" name="password" placeholder="password"><br>
-            <input type="submit" class="btn btn-success">
-
+            <input type="text" name="username" placeholder="username"><br> <br>
+            <input type="password" name="password" placeholder="password"><br> <br>
+            <input type="submit" class="btn btn-success" value="Login"> <br>
+            <a href='register' class = "btn btn-alert">Register</a>
         </form>
     </div>
     <div>

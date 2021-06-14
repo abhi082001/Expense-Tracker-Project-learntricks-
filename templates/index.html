@@ -42,29 +42,12 @@
 									{% endif %}
 								</ul>
 							</nav>
-							
-
-							<!-- Hamburger -->
-
-							<div class="hamburger ml-auto">
-								<i class="fa fa-bars" aria-hidden="true"></i>
-							</div>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="header_social d-flex flex-row align-items-center justify-content-start">
-			<ul class="d-flex flex-row align-items-start justify-content-start">
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
+		
 	</header>
 
 	
@@ -78,7 +61,7 @@
 
 				<!-- Slide -->
 				<div class="owl-item">
-					<div class="background_image" style="background-image:url({% static 'images/expense tracker.webp' %})"></div>
+					<div class="background_image" style="background-image:url({% static 'images/Peach.jpg' %})"></div>
 					<div class="home_slider_content_container">
 						<div class="container">
 							<div class="row">
@@ -96,9 +79,9 @@
 			<div class="home_page_nav">
 				<ul class="d-flex flex-column align-items-end justify-content-end">
 					{% if user.is_authenticated %}
-					<h4><a href="/">Analytics<span></span></a></h4>
-					<h4><a href="/">Expense/income entry<span></span></a></h4>
-					{% else %}
+					<h4><a href="userinput/analytics">Analytics<span></span></a></h4>
+					<h4><a href="userinput/user_input">Expense/income entry<span></span></a></h4>
+					{% else %} 
 					<h4><a href="accounts/login">Analytics<span></span></a></h4>
 					<h4><a href="accounts/login">Expense/income entry<span></span></a></h4>
 					{% endif %}
