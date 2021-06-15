@@ -18,51 +18,49 @@
 	</head>
 </head>
 <body>
-    <h4 class = "text-center alert alert-info">See your expense analytics here</h4>
-	<form method="GET">
-				
-		{{myFilter.form}}
-		<br>
-		<input type="submit" class="btn btn-success" value="Add">
-	</form>
-	<br>
-	Result1 : {{sum_income.Amount__sum}}
-	<br>
-	Result2 : {{sum_expense.Amount__sum}}
-	
+    <h4 class = "text-center alert alert-info"> Hello, {{user.first_name}}. See your expense analytics here</h4>
 	<div class="row">
-		<div class = "col-sm-7 offset-4">
-			<h4 class = "text-center alert alert-info"> Your expense/income table</h4>
-				{% if stu %}
-				<table class="table table-hover">
-						<thead>
-							<tr>
-							
-							<th scope="col">Month</th>
-							<th scope="col">Day</th>
-							<th scope="col">Exp/inc</th>
-							<th scope="col">Tags</th>
-							<th scope="col">Amount</th>
-							</tr>
-						</thead>
-						<tbody>
-							
-							{% for st in stu %}
-							<tr>
-								
-								<td>{{st.Month}}</td>
-								<td>{{st.Day}}</td>
-								<td>{{st.Expinc}}</td>
-								<td>{{st.Tag}}</td>
-								<td>{{st.Amount}}</td>
-							</tr>
-							{% endfor %}
-						</tbody>
-				</table>
-				{% else %}
-				<h4 class = "text-center alert alert-info">No Records</h4>
-				{% endif %}
+		<form method="GET">
+			
+			<h5 class = "col-sm-3 offset-1 " >{{myFilter.form}}</h5>
+			
+			<h5 class = "col-sm-3 offset-1 "><input type="submit" class="btn btn-success" value="Add"></h5>
+			<br>
+			<h5 class = "offset-2"><a href='/' class = "btn btn-warning">Home</a></h5><br>
+			<h5 class = "offset-2"><a href='user_input' class = "btn btn-warning">Back</a></h5>	<br>
+			<h5 class = "offset-2"><a href='accounts/logout' class = "btn btn-danger">Logout</a></h5>
+		</form>
+		<form action="" method="POST">
+			{% csrf_token %}
+			<h5 class = "col-sm-3 offset-1 "><input type="submit" class="btn btn-success" value="Bar plot" name="bar"></h5>
+			<h5 class = "col-sm-3 offset-1 "><input type="submit" class="btn btn-success" value="Pie chart" name="pie"></h5>
+		</form>
+		<br>
+		<div class = "col-sm-3 offset-1">
+			<h4 class = "text-center alert alert-info"> Income (rupees): </h4>
+			<h5>{{sum_income}}</h5>
+			<br>
+			<h4 class = "text-center alert alert-info"> Expense (rupees): </h4>
+			<h5>{{sum_expense}}</h5>
+			<br>
+			<h4 class = "text-center alert alert-info"> Balance (rupees): </h4>
+			<h5>{{sum_diff}}</h5>
 		</div>
+			
+			<div class = "col-sm-5">
+				<h4 class = "text-center alert alert-info"> Your Expense Charts</h4>
+				{% if stu %}
+					<h4 class = "text-center alert alert-danger"> {{s}} </h4>
+					{% if chart %} 
+						<img src="data:image/png;base64, {{chart|safe}}">
+					    
+					{% endif %}
+				{% else %}
+					<h4 class = "alert alert-info">No record of expense in this month</h4>
+				{% endif %}
+			</div>
+			
+			
 	</div>
 </body>
 </html>

@@ -18,60 +18,90 @@
 	</head>
 </head>
 <body>
-    <div class="row">
-		<div class="col-sm-3 offset-1">
-			<h4 class = "text-center alert alert-info">Add your Expense/Income</h4>
-			<form action="" method="POST">
-				{% csrf_token %}
-				
-				{{form.as_p}}
-				<br>
-				<input type="submit" class="btn btn-success" value="Add">
-			</form>
-			<form method="GET">
-				
-				{{myFilter.form}}
-				<br>
-				<input type="submit" class="btn btn-success" value="Add">
-			</form>
-			<br>
-			 <a href='/' class = "btn btn-warning btn-sm">Home</a>
-			 <a href='accounts/logout' class = "btn btn-danger">Logout</a>
-			 <a href='analytics' class = "btn btn-warning">Analytics</a>
-		</div>
-	
-		<div class = "col-sm-7 offset-1">
-			<h4 class = "text-center alert alert-info"> Your expense/income table</h4>
-			{% if stu %}
-			<table class="table table-hover">
-					<thead>
-						<tr>
-						
-						<th scope="col">Month</th>
-						<th scope="col">Day</th>
-						<th scope="col">Exp/inc</th>
-						<th scope="col">Tags</th>
-						<th scope="col">Amount</th>
-						</tr>
-					</thead>
-					<tbody>
-						
-						{% for st in stu %}
-						<tr>
+
+	<header class="header">
+		
+			<div class="row">
+				<div class="col">
+					<div class="header_content d-flex flex-row align-items-center justify-content-start">
+						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
 							
-							<td>{{st.Month}}</td>
-							<td>{{st.Day}}</td>
-							<td>{{st.Expinc}}</td>
-							<td>{{st.Tag}}</td>
-							<td>{{st.Amount}}</td>
-						</tr>
-						{% endfor %}
-					</tbody>
-			</table>
-			{% else %}
-				<h4 class = "text-center alert alert-info">No Records</h4>
-			{% endif %}
+							<nav class="main_nav">
+								<ul class="d-flex flex-row align-items-start justify-content-start">
+									
+									{% if user.is_authenticated %}
+									<h4>Hello, {{user.first_name}}</h4>
+									{% endif %}
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		
+	</header>
+	<br> <br>
+    <div class = "container mt-5">
+		<div class="row">
+			<div class="col-sm-4 offset-1">
+				<h4 class = "text-center alert alert-info">Add your Expense/Income</h4>
+				<form action="" method="POST">
+					{% csrf_token %}
+					
+					{{form.as_p}}
+					<br>
+					<input type="submit" class="btn btn-success" value="Add">
+				</form>
+				<br>
+				<form method="GET">
+					
+					{{myFilter.form}}
+					<br>
+					<input type="submit" class="btn btn-success" value="Add"> <br> <br>
+					<a href='/' class = "btn btn-warning">Home</a>
+					<a href='analytics' class = "btn btn-warning">Analytics</a> <br> <br>
+					<a href='accounts/logout' class = "btn btn-danger">Logout</a>
+					
+				</form>
+				
+				
+			</div>
+		
+			<div class = "col-sm-7">
+				<h4 class = "text-center alert alert-info"> Your expense/income table</h4>
+				{% if stu %}
+				<table class="table table-hover">
+						<thead>
+							<tr>
+							
+							<th scope="col">Month</th>
+							<th scope="col">Day</th>
+							<th scope="col">Exp/inc</th>
+							<th scope="col">Tags</th>
+							<th scope="col">Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<h5>** Tag means the catagory of your expense or income **</h5>
+							{% for st in stu %}
+							<tr>
+								
+								<td>{{st.Month}}</td>
+								<td>{{st.Day}}</td>
+								<td>{{st.Expinc}}</td>
+								<td>{{st.Tag}}</td>
+								
+								<td>{{st.Amount}}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+				</table>
+				{% else %}
+					<h4 class = "text-center alert alert-info">No Records</h4>
+				{% endif %}
+			</div>
 		</div>
-	</div>
+	</div> 
 </body>
 </html>
