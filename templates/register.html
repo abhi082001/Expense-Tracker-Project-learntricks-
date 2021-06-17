@@ -19,7 +19,7 @@
     <div class="background_image" style="background-image:url({% static 'images/Peach.jpg' %})"></div>
     <div class="container mt-5">
         <br>
-        <h4 class="text-center"> SignUp </h4>
+        <h4 class="text-center" style="color:black;font-size:20px;"> SignUp </h4>
         <form action="register" method="post" class="text-center">
             {% csrf_token %}
 
@@ -30,6 +30,7 @@
             <input type="password" name="password1" placeholder="Password"><br> <br>
             <input type="password" name="password2" placeholder="Confirm Password"><br> <br>
             <input type="submit" class="btn btn-success" value="SignUp">
+            <h5><a href="/" class = "btn btn-warning">Home</a></h5>
 
         </form>
     </div>

@@ -15,7 +15,25 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
-	</head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		$(document).ready(function()
+		{
+			var $productvar=$("#productddl");
+				$itemvar=$("#Itemddl");
+
+				$options = $itemvar.find('option');
+				$productvar.on('change',function()
+				{
+					$itemvar.html($options.filter('[value="'+this.value+'"]'));
+					var selectedVal1 = $('#productddl option:selected').text();
+					var selectedVal2 = $('#Itemddl option:selected').text();
+
+				}
+				).trigger('change');
+		}
+		);
+	</script>
 </head>
 <body>
 
@@ -30,7 +48,7 @@
 								<ul class="d-flex flex-row align-items-start justify-content-start">
 									
 									{% if user.is_authenticated %}
-									<h4>Hello, {{user.first_name}}</h4>
+									<p style="color:black;font-size:20px;">Hi, {{user.first_name}}</p>
 									{% endif %}
 								</ul>
 							</nav>
@@ -46,9 +64,25 @@
 		<div class="row">
 			<div class="col-sm-4 offset-1">
 				<h4 class = "text-center alert alert-info">Add your Expense/Income</h4>
+				
+				<br>
 				<form action="" method="POST">
 					{% csrf_token %}
-					
+					<select id = "productddl" name = "exptype" >
+						<option disabled selected="true"> -- select Expense/Income -- </option>
+						{% for e in exps %}
+						<option value="{{e.Pid}}" label="{{e.Ename}}">{{e.Ename}}</option>
+						
+						{% endfor %}
+					</select>
+					<br>
+					<select id="Itemddl" name="tagname" >
+						<option disabled selected="true"> -- select Tag -- </option>
+						{% for t in tags %}
+						<option value="{{t.Pid}}" label="{{t.tagname}}">{{t.tagname}}</option>
+						
+						{% endfor %}
+					</select>
 					{{form.as_p}}
 					<br>
 					<input type="submit" class="btn btn-success" value="Add">
@@ -58,9 +92,10 @@
 					
 					{{myFilter.form}}
 					<br>
-					<input type="submit" class="btn btn-success" value="Add"> <br> <br>
-					<a href='/' class = "btn btn-warning">Home</a>
-					<a href='analytics' class = "btn btn-warning">Analytics</a> <br> <br>
+					<input type="submit" class="btn btn-success" value="Add month filter"> <br> <br>
+					<h5><a href='/' class = "btn btn-warning">Home</a></h5>
+					<a href='analytics' class = "btn btn-info">Expense analytics</a>
+					<a href='ianalytics' class = "btn btn-info">Income analytics</a> <br> <br>
 					<a href='accounts/logout' class = "btn btn-danger">Logout</a>
 					
 				</form>
@@ -75,11 +110,12 @@
 						<thead>
 							<tr>
 							
-							<th scope="col">Month</th>
-							<th scope="col">Day</th>
-							<th scope="col">Exp/inc</th>
-							<th scope="col">Tags</th>
-							<th scope="col">Amount</th>
+							<th scope="col" style="color:black;font-size:20px;">Month</th>
+							<th scope="col" style="color:black;font-size:20px;">Day</th>
+							<th scope="col" style="color:black;font-size:20px;">Exp/inc</th>
+							<th scope="col" style="color:black;font-size:20px;">Tags</th>
+							<th scope="col" style="color:black;font-size:20px;">Amount</th>
+							<th scope="col" style="color:black;font-size:20px;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -87,12 +123,18 @@
 							{% for st in stu %}
 							<tr>
 								
-								<td>{{st.Month}}</td>
-								<td>{{st.Day}}</td>
-								<td>{{st.Expinc}}</td>
-								<td>{{st.Tag}}</td>
-								
-								<td>{{st.Amount}}</td>
+								<td style="color:black;font-size:15px;">{{st.Month}}</td>
+								<td style="color:black;font-size:15px;">{{st.Day}}</td>
+								<td style="color:black;font-size:15px;">{{st.Expinc}}</td>
+								<td style="color:black;font-size:15px;">{{st.Tag}}</td>
+								<td style="color:black;font-size:15px;">{{st.Amount}}</td>
+								<td>
+									<a href="{% url 'updatedata' st.id %}" class = 'btn btn-warning btn-sm'>Edit</a>
+									<form action = "{% url 'deletedata' st.id %}" method="POST" class = "d-inline">
+										{% csrf_token %}
+										<input type="submit" class = "btn btn-danger" value="Delete">
+									</form>
+								</td>
 							</tr>
 							{% endfor %}
 						</tbody>

@@ -93,3 +93,12 @@ class Uinput(models.Model):
     Amount = models.IntegerField()
     user = models.ForeignKey(User, on_delete = models.CASCADE)
 
+class exptable(models.Model):
+    Pid = models.IntegerField(primary_key = True)
+    Ename = models.CharField(max_length = 70)
+
+class tagtable(models.Model):
+    ID = models.IntegerField(primary_key = True)
+    tagname = models.CharField(max_length = 70)
+    Pid = models.IntegerField()
+

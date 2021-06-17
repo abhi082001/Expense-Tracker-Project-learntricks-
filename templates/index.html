@@ -34,8 +34,8 @@
 								<ul class="d-flex flex-row align-items-start justify-content-start">
 									
 									{% if user.is_authenticated %}
-									<li>Hello, {{user.first_name}}</li>
-									<li><a href="accounts/logout">Logout</a></li>
+									<p style="color:black;font-size:20px;"><strong> Hi, {{user.first_name}} </strong></p>
+									<li style="margin:15px;font-size:17px;"><a href="accounts/logout">Logout</a></li>
 									{% else %}
 									<li><a href="accounts/register">Register</a></li>
 									<li><a href="accounts/login">Login</a></li>
@@ -79,10 +79,12 @@
 			<div class="home_page_nav">
 				<ul class="d-flex flex-column align-items-end justify-content-end">
 					{% if user.is_authenticated %}
-					<h4><a href="userinput/analytics">Analytics<span></span></a></h4>
+					<h4><a href="userinput/analytics">Expense Analytics<span></span></a></h4>
+					<h4><a href="userinput/ianalytics">Income Analytics<span></span></a></h4>
 					<h4><a href="userinput/user_input">Expense/income entry<span></span></a></h4>
 					{% else %} 
-					<h4><a href="accounts/login">Analytics<span></span></a></h4>
+					<h4><a href="accounts/login">Expense Analytics<span></span></a></h4>
+					<h4><a href="accounts/login">Income Analytics<span></span></a></h4>
 					<h4><a href="accounts/login">Expense/income entry<span></span></a></h4>
 					{% endif %}
 					

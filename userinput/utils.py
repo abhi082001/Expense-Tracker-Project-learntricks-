@@ -25,7 +25,7 @@ def get_plot(x,y):
 
 def get_plot_pie(x,y):
     plt.switch_backend('AGG')
-    plt.figure(figsize = (9,6))
+    plt.figure(figsize = (8,6))
     plt.title('Category wise expense')
     plt.pie(y,labels=x,autopct='%0.1f%%')
     plt.tight_layout()
