@@ -15,25 +15,8 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script>
-		$(document).ready(function()
-		{
-			var $productvar=$("#productddl");
-				$itemvar=$("#Itemddl");
-
-				$options = $itemvar.find('option');
-				$productvar.on('change',function()
-				{
-					$itemvar.html($options.filter('[value="'+this.value+'"]'));
-					var selectedVal1 = $('#productddl option:selected').text();
-					var selectedVal2 = $('#Itemddl option:selected').text();
-
-				}
-				).trigger('change');
-		}
-		);
-	</script>
+	
+	
 </head>
 <body>
 
@@ -63,36 +46,33 @@
     <div class = "container mt-5">
 		<div class="row">
 			<div class="col-sm-4 offset-1">
-				<h4 class = "text-center alert alert-info">Add your Expense/Income</h4>
+				<h4 class = "text-center alert alert-info">Add your Income</h4>
 				
 				<br>
 				<form action="" method="POST">
 					{% csrf_token %}
-					<select id = "productddl" name = "exptype" >
-						<option disabled selected="true"> -- select Expense/Income -- </option>
-						{% for e in exps %}
-						<option value="{{e.Pid}}" label="{{e.Ename}}">{{e.Ename}}</option>
-						
-						{% endfor %}
-					</select>
-					<br>
-					<select id="Itemddl" name="tagname" >
-						<option disabled selected="true"> -- select Tag -- </option>
+					
+					<select name="tagname2" >
+						<option disabled selected="true"> -- select Income Category -- </option>
 						{% for t in tags %}
-						<option value="{{t.Pid}}" label="{{t.tagname}}">{{t.tagname}}</option>
-						
+						<option label="{{t.tagname_1}}">{{t.tagname_1}}</option>
 						{% endfor %}
 					</select>
+                    <br> <br>
 					{{form.as_p}}
 					<br>
-					<input type="submit" class="btn btn-success" value="Add">
+					<input type="submit" class="btn btn-success" value="Add"> <br>
+                    <a href='user_input' class = "btn btn-info">Expense entry page</a>
+                    {% for message in messages %}
+					<h3> {{message}} </h3>
+					{% endfor %}
 				</form>
 				<br>
 				<form method="GET">
 					
 					{{myFilter.form}}
 					<br>
-					<input type="submit" class="btn btn-success" value="Add month filter"> <br> <br>
+					<input type="submit" class="btn btn-success" value="Add filter"> <br> <br>
 					<h5><a href='/' class = "btn btn-warning">Home</a></h5>
 					<a href='analytics' class = "btn btn-info">Expense analytics</a>
 					<a href='ianalytics' class = "btn btn-info">Income analytics</a> <br> <br>
@@ -104,7 +84,7 @@
 			</div>
 		
 			<div class = "col-sm-7">
-				<h4 class = "text-center alert alert-info"> Your expense/income table</h4>
+				<h4 class = "text-center alert alert-info"> Your expense and income table</h4>
 				{% if stu %}
 				<table class="table table-hover">
 						<thead>

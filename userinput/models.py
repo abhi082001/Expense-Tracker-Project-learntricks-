@@ -62,7 +62,7 @@ Tag_choices =(
     ('-','-----Expense Choices-----'),
     ('House Rent','House Rent'),
     ('Grocery','Grocery'),
-    ('Vegitables','Vegitables'),
+    ('Vegetables','Vegetables'),
     ('Fuel expenses','Fuel expenses'),
     ('Car loan','Car loan'),
     ('Housing loan','Housing loan'),
@@ -72,6 +72,12 @@ Tag_choices =(
     ('SIM card recharge', 'SIM card recharge'),
     ('Internet','Internet'),
     ('Cooking Gas','Cooking Gas'),
+    ('School fees','School fees'),
+    ('Transportation fees','Transportation fees'),
+    ('Hostel fee','Hostel fee'),
+    ('Bus pass','Bus pass'),
+    ('Gym fee','Gym fee'),
+    ('College fee','College fee'),
     ('Others','Others'),
     
     
@@ -82,6 +88,9 @@ Tag_choices =(
     ('Prize money','Prize money'),
     ('Freelancing', 'Freelancing'),
     ('House rent income','House rent income'),
+    ('Bit coin','Bit coin'),
+    ('Dividends income','Dividends income'),
+    ('Side business','Side business'),
     ('Others','Others')
 )
 
@@ -101,4 +110,9 @@ class tagtable(models.Model):
     ID = models.IntegerField(primary_key = True)
     tagname = models.CharField(max_length = 70)
     Pid = models.IntegerField()
+
+class tagtable_income(models.Model):
+    ID_1 = models.IntegerField(primary_key = True)
+    tagname_1 = models.CharField(max_length = 70)
+    Pid_1 = models.IntegerField()
 

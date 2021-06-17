@@ -1,0 +1,130 @@
+{% load static %}
+{% static "images" as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Expense tracker</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Travello template project">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+	<link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
+	
+</head>
+<body>
+
+	<header class="header">
+		
+			<div class="row">
+				<div class="col">
+					<div class="header_content d-flex flex-row align-items-center justify-content-start">
+						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
+							
+							<nav class="main_nav">
+								<ul class="d-flex flex-row align-items-start justify-content-start">
+									
+									{% if user.is_authenticated %}
+									<p style="color:black;font-size:20px;">Hi, {{user.first_name}}</p>
+									{% endif %}
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		
+	</header>
+	<br> <br>
+    <div class = "container mt-5">
+		<div class="row">
+			<div class="col-sm-4 offset-1">
+				<h4 class = "text-center alert alert-info">Add your Expense</h4>
+				
+				<br>
+				<form action="" method="POST">
+					{% csrf_token %}
+					
+					<select  name="tagname1" >
+						<option disabled selected="true"> -- select Expense Category -- </option>
+						{% for t in tags %}
+						<option label="{{t.tagname}}">{{t.tagname}}</option>
+						
+						{% endfor %}
+					</select>
+					<br> <br>
+					{{form.as_p}}
+					<br>
+					<input type="submit" class="btn btn-success" value="Add"> <br>
+					<a href='user_input1' class = "btn btn-info">Income entry page</a>
+					{% for message in messages %}
+					<h3> {{message}} </h3>
+					{% endfor %}
+				</form>
+				<br>
+				<form method="GET">
+					
+					{{myFilter.form}}
+					<br>
+					<input type="submit" class="btn btn-success" value="Add filter"> <br> <br>
+					<h5><a href='/' class = "btn btn-warning">Home</a></h5>
+					<a href='analytics' class = "btn btn-info">Expense analytics</a>
+					<a href='ianalytics' class = "btn btn-info">Income analytics</a> <br> <br>
+					<a href='accounts/logout' class = "btn btn-danger">Logout</a>
+					
+				</form>
+				
+				
+			</div>
+		
+			<div class = "col-sm-7">
+				<h4 class = "text-center alert alert-info"> Your expense and income table</h4>
+				{% if stu %}
+				<table class="table table-hover">
+						<thead>
+							<tr>
+							
+							<th scope="col" style="color:black;font-size:20px;">Month</th>
+							<th scope="col" style="color:black;font-size:20px;">Day</th>
+							<th scope="col" style="color:black;font-size:20px;">Exp/inc</th>
+							<th scope="col" style="color:black;font-size:20px;">Tags</th>
+							<th scope="col" style="color:black;font-size:20px;">Amount</th>
+							<th scope="col" style="color:black;font-size:20px;">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<h5>** Tag means the catagory of your expense or income **</h5>
+							<h5>** Edited entries go to the bottom **</h5>
+							{% for st in stu %}
+							<tr>
+								
+								<td style="color:black;font-size:15px;">{{st.Month}}</td>
+								<td style="color:black;font-size:15px;">{{st.Day}}</td>
+								<td style="color:black;font-size:15px;">{{st.Expinc}}</td>
+								<td style="color:black;font-size:15px;">{{st.Tag}}</td>
+								<td style="color:black;font-size:15px;">{{st.Amount}}</td>
+								<td>
+									<a href="{% url 'updatedata' st.id %}" class = 'btn btn-warning btn-sm'>Edit</a>
+									<form action = "{% url 'deletedata' st.id %}" method="POST" class = "d-inline">
+										{% csrf_token %}
+										<input type="submit" class = "btn btn-danger" value="Delete">
+									</form>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+				</table>
+				{% else %}
+					<h4 class = "text-center alert alert-info">No Records</h4>
+				{% endif %}
+			</div>
+		</div>
+	</div> 
+</body>
+</html>

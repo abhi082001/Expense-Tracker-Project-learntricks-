@@ -79,13 +79,17 @@
 			<div class="home_page_nav">
 				<ul class="d-flex flex-column align-items-end justify-content-end">
 					{% if user.is_authenticated %}
-					<h4><a href="userinput/analytics">Expense Analytics<span></span></a></h4>
-					<h4><a href="userinput/ianalytics">Income Analytics<span></span></a></h4>
-					<h4><a href="userinput/user_input">Expense/income entry<span></span></a></h4>
+					<h4><a href="userinput/user_input">Expense entry page<span></span></a></h4>
+					<h4><a href="userinput/user_input1">Income entry page<span></span></a></h4>
+					<h4><a href="userinput/analytics">Expense Analytics page<span></span></a></h4>
+					<h4><a href="userinput/ianalytics">Income Analytics page<span></span></a></h4>
+					
 					{% else %} 
+					<h4><a href="accounts/login">Expense entry<span></span></a></h4>
+					<h4><a href="accounts/login">Income entry<span></span></a></h4>
 					<h4><a href="accounts/login">Expense Analytics<span></span></a></h4>
 					<h4><a href="accounts/login">Income Analytics<span></span></a></h4>
-					<h4><a href="accounts/login">Expense/income entry<span></span></a></h4>
+					
 					{% endif %}
 					
 				</ul>

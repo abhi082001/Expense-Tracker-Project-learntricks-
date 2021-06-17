@@ -5,10 +5,12 @@ import accounts
 
 urlpatterns = [
     path('user_input',views.user_input, name='user_input'),
+    path('user_input1',views.user_input1, name='user_input1'),
     path('analytics',views.analytics, name='analytics'),
     path('ianalytics',views.ianalytics, name='ianalytics'),
     path('delete/<int:id>/',views.delete_data, name='deletedata'),
     path('<int:id>/',views.update_data, name='updatedata'),
     path('accounts/logout',accounts.views.logout, name='logout'),
     path('accounts/login',accounts.views.login, name='login'),
+    path('accounts/register',accounts.views.register, name='register')
 ]

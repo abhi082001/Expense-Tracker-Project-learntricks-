@@ -1,23 +1,24 @@
 from django.shortcuts import render, HttpResponseRedirect
 from .forms import Userentry
-from .models import Uinput,exptable,tagtable
+from .forms1 import Userentry_1
+from .models import Uinput,exptable,tagtable,tagtable_income
 from django.contrib.auth.models import User, auth
-from .filters import OrderFilter
+from .filters import OrderFilter, OrderFilter1
 from django.db.models import Sum
 from .utils import get_plot, get_plot_pie
 from django.contrib import messages
 
 # Create your views here.
 def user_input(request):
+    
     if request.method == 'POST':
-        if request.POST.get('exptype'):
-            #savevalue1 = Uinput()
-            savevalue1 = request.POST.get('exptype')
-               
         
-        if request.POST.get('tagname'):
-            #savevalue2 = Uinput()
-            savevalue2 = request.POST.get('tagname')
+            
+        savevalue1 = None 
+        
+        if request.POST.get('tagname1'):
+            
+            savevalue1 = request.POST.get('tagname1')
             
        
         fm = Userentry(request.POST)
@@ -27,22 +28,75 @@ def user_input(request):
             #pw = fm.cleaned_data['Expinc']
             #dw = fm.cleaned_data['Tag']
             fw = fm.cleaned_data['Amount']
-            reg = Uinput(Month=m, Day=em,Expinc=savevalue1,Tag=savevalue2,Amount=fw,user=request.user)
+            if savevalue1!=None:
+                messages.info(request, 'Added successfully')
+                reg = Uinput(Month=m, Day=em,Expinc='Expense',Tag=savevalue1,Amount=fw,user=request.user)
+            else:
+                messages.info(request, 'Please enter category')
+                return HttpResponseRedirect('user_input')
             reg.save()
             fm = Userentry()
     else:
         fm = Userentry()
-    exps = exptable.objects.all()
-    tags = tagtable.objects.all()
+
     if request.user.is_authenticated:
         log_user = request.user
     else:
         return HttpResponseRedirect('accounts/login')
+        
     stud = Uinput.objects.filter(user=log_user)
-    myFilter = OrderFilter(request.GET, queryset=stud)
-    
+    myFilter = OrderFilter1(request.GET, queryset=stud)
     stud = myFilter.qs
-    return render(request,'entry.html',{'form':fm,'stu':stud,'myFilter': myFilter,'exps':exps,'tags':tags})
+    
+    exps = exptable.objects.all()
+   
+    tags = tagtable.objects.all()
+            
+    
+    return render(request,'entry_expense.html',{'form':fm,'stu':stud,'myFilter': myFilter,'tags':tags})
+
+def user_input1(request):
+    
+    if request.method == 'POST':
+        
+               
+        savevalue2 = None
+        if request.POST.get('tagname2'):
+            
+            savevalue2 = request.POST.get('tagname2')
+            
+       
+        fm = Userentry(request.POST)
+        if fm.is_valid():
+            m = fm.cleaned_data['Month']
+            em = fm.cleaned_data['Day']
+            fw = fm.cleaned_data['Amount']
+            if savevalue2!=None:
+                messages.info(request, 'Added successfully')
+                reg = Uinput(Month=m, Day=em,Expinc='Income',Tag=savevalue2,Amount=fw,user=request.user)
+            else:
+                messages.info(request, 'Please enter category')
+                return HttpResponseRedirect('user_input1')
+            reg.save()
+            fm = Userentry()
+    else:
+        fm = Userentry()
+
+    if request.user.is_authenticated:
+        log_user = request.user
+    else:
+        return HttpResponseRedirect('accounts/login')
+        
+    stud = Uinput.objects.filter(user=log_user)
+    myFilter = OrderFilter1(request.GET, queryset=stud)
+    stud = myFilter.qs
+    
+    exps = exptable.objects.all()
+   
+    tags = tagtable_income.objects.all()
+            
+    
+    return render(request,'entry_income.html',{'form':fm,'stu':stud,'myFilter': myFilter,'tags':tags})
 
 def analytics(request):
     if request.user.is_authenticated:
@@ -217,14 +271,14 @@ def ianalytics(request):
 def update_data(request,id):
     if request.method == 'POST':
         pi  = Uinput.objects.get(pk = id)
-        fm = Userentry(request.POST, instance = pi)
-        if fm.is_valid():
-            fm.save()
+        fm1 = Userentry_1(request.POST, instance = pi)
+        if fm1.is_valid():
+            fm1.save()
             messages.info(request, 'Updated successfully')
     else:
         pi  = Uinput.objects.get(pk = id)
-        fm = Userentry(instance = pi)
-    return render(request,'update.html', {'form':fm})
+        fm1 = Userentry_1(instance = pi)
+    return render(request,'update.html', {'form':fm1})
 
 def delete_data(request, id):
     if request.method == 'POST':
