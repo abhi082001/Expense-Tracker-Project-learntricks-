@@ -15,7 +15,7 @@ def get_graph():
 def get_plot(x,y):
     plt.switch_backend('AGG')
     plt.figure(figsize = (8,4))
-    plt.title('Daily expenses')
+    #plt.title('Daily expenses')
     plt.bar(x,y)
     plt.xlabel('Days')
     plt.ylabel('EXP Amount')
@@ -26,7 +26,7 @@ def get_plot(x,y):
 def get_plot_pie(x,y):
     plt.switch_backend('AGG')
     plt.figure(figsize = (8,6))
-    plt.title('Category wise expense')
+    #plt.title('Category wise expense')
     plt.pie(y,labels=x,autopct='%0.1f%%')
     plt.tight_layout()
     graph = get_graph()
