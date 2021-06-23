@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
+import math
 
 def get_graph():
     buffer = BytesIO()
@@ -14,10 +15,12 @@ def get_graph():
 
 def get_plot(x,y):
     plt.switch_backend('AGG')
-    plt.figure(figsize = (8,4))
+    plt.figure(figsize = (6,4))
     #plt.title('Daily expenses')
+    new_list = range(math.floor(min(x)), math.ceil(max(x))+1)
     plt.bar(x,y)
-    plt.xlabel('Days')
+    plt.xticks(new_list)
+    plt.xlabel('Day')
     plt.ylabel('EXP Amount')
     plt.tight_layout()
     graph = get_graph()
@@ -25,7 +28,7 @@ def get_plot(x,y):
 
 def get_plot_pie(x,y):
     plt.switch_backend('AGG')
-    plt.figure(figsize = (8,6))
+    plt.figure(figsize = (6,4))
     #plt.title('Category wise expense')
     plt.pie(y,labels=x,autopct='%0.1f%%')
     plt.tight_layout()

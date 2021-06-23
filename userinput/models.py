@@ -4,20 +4,25 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import User, auth
 
-# Create your models here.
+from datetime import date
+
+today = date.today()
+
+
 Month_choices= (
-    ('January','JANUARY'),
-    ('February','FEBRUARY'),
-    ('March', 'MARCH'),
-    ('April','APRIL'),
-    ('May','MAY'),
-    ('June','JUNE'),
-    ('July','JULY'),
-    ('August','AUGUST'),
-    ('September','SEPTEMBER'),
-    ('October','OCTOBER'),
-    ('November','NOVEMBER'),
-    ('December','DECEMBER')
+    
+    ('January','January'),
+    ('February','February'),
+    ('March', 'March'),
+    ('April','April'),
+    ('May','May'),
+    ('June','June'),
+    ('July','July'),
+    ('August','August'),
+    ('September','September'),
+    ('October','October'),
+    ('November','November'),
+    ('December','December')
 )
 Day_choices =(
     (1,1),
@@ -95,8 +100,8 @@ Tag_choices =(
 )
 
 class Uinput(models.Model):
-    Month = models.CharField(max_length=70, choices = Month_choices)
-    Day = models.IntegerField(choices = Day_choices)
+    Month = models.CharField(max_length=70, choices = Month_choices,default='June')
+    Day = models.IntegerField(choices = Day_choices, default=today.day)
     Expinc = models.CharField(max_length=70,choices = Exp_choices)
     Tag = models.CharField(max_length=70,choices = Tag_choices)
     Amount = models.IntegerField()

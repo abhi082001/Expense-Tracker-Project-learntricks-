@@ -19,55 +19,59 @@
 </head>
 <body>
     <h4 class = "text-center alert alert-info">{{user.first_name}}, see your monthly income analytics here.</h4>
+	<div>
+		<a href='analytics' class = "btn btn-info">Expense analytics page</a>
+		<a href='user_input' class = "btn btn-warning">Back to expense entry page</a>
+		<a href='user_input1' class = "btn btn-warning">Back to income entry page</a>
+		<a href='/' class = "btn btn-warning">Home</a>
+		<a href='accounts/logout' class = "btn btn-danger">Logout</a>
+	</div>
+	<br>
 	<div class="row">
 		<form method="GET">
 			
-			<h4 class="alert alert-warning offset-1"> <strong> Select month to see that month's income graphs </strong></h4>
+			<h4 class="alert alert-warning offset-1"> <strong> Select month to see that month's income and graphs </strong></h4>
 			<h5 class = "col-sm-3 offset-1 " style="color:black;font-size:20px;">{{myFilter.form}}</h5>
 			
 			<h5 class = "col-sm-3 offset-1 "><input type="submit" class="btn btn-success" value="Add month filter"></h5>
 			<br>
-            <h5 class = "offset-2"><a href='analytics' class = "btn btn-info">Expense analytics page</a></h5><br>
+			<div class = "offset-1">
 			
-			<h5 class = "offset-2"><a href='user_input' class = "btn btn-warning">Back to expense entry page</a></h5>	<br>
-			<h5 class = "offset-2"><a href='user_input1' class = "btn btn-warning">Back to income entry page</a></h5>	<br>
-            <h5 class = "offset-2"><a href='/' class = "btn btn-warning">Home</a></h5><br>
-			<h5 class = "offset-2"><a href='accounts/logout' class = "btn btn-danger">Logout</a></h5>
+				<h4 class="alert alert-success"> {{m}} Total Expense,Income,Balance </h4>
+				<h4 class = "text-center alert alert-info"> Income (rupees): </h4>
+				<h4 style="color:black;font-size:20px;"><strong>{{sum_income}}</strong></h4>
+				<br>
+				<h4 class = "text-center alert alert-info"> Expense (rupees): </h4>
+				<h4 style="color:black;font-size:20px;"><strong>{{sum_expense}}</strong></h4>
+				<br>
+				<h4 class = "text-center alert alert-info"> Balance (rupees): </h4>
+				<h4 style="color:black;font-size:20px;"><strong>{{sum_diff}}</strong></h4>
+				
+			</div>
 		</form>
 		
 		<br>
-		<div class = "col-sm-3">
-			
-			<h4 class="alert alert-success"> {{m}} Total Expense,Income,Balance </h4>
-			<h4 class = "text-center alert alert-info"> Income (rupees): </h4>
-			<h4 style="color:black;font-size:20px;"><strong>{{sum_income}}</strong></h4>
-			<br>
-			<h4 class = "text-center alert alert-info"> Expense (rupees): </h4>
-			<h4 style="color:black;font-size:20px;"><strong>{{sum_expense}}</strong></h4>
-			<br>
-			<h4 class = "text-center alert alert-info"> Balance (rupees): </h4>
-			<h4 style="color:black;font-size:20px;"><strong>{{sum_diff}}</strong></h4>
-			
-		</div>
-			
-			<div class = "col-sm-5">
-				<h4 class = "text-center alert alert-info"> Your Income Charts</h4>
-				{% if stu %}
-					<h4 class = "text-center alert alert-danger"> {{s}} </h4>
-					<form action="" method="POST">
-						{% csrf_token %}
-						<input type="submit" class="btn btn-success" value="Day wise income" name="bar1">
-						<input type="submit" class="btn btn-success" value="Category wise income" name="pie1">
-					</form>
-					{% if chart %} 
-						<h4 class = "text-center alert alert-dark"> {{m}} </h4>
-						<img src="data:image/png;base64, {{chart|safe}}">
-					    
-					{% endif %}
-				{% else %}
-					<h4 class = "alert alert-info">No record of income in this month</h4>
+		<div class = "col-sm-5 offset-2">
+			<h4 class = "text-center alert alert-info"> Your Income Charts</h4>
+			{% if stu %}
+				<h4 class = "text-center alert alert-danger"> {{s}} </h4>
+				<form action="" method="POST">
+					{% csrf_token %}
+					<input type="submit" class="btn btn-success" value="Day wise income" name="bar1">
+					<input type="submit" class="btn btn-success" value="Category wise income" name="pie1">
+				</form>
+				{% if chart %} 
+					<h4 class = "text-center alert alert-dark"> {{m}} </h4>
+					<img src="data:image/png;base64, {{chart|safe}}">
+					
 				{% endif %}
-			</div>
+			{% else %}
+				<h4 class = "alert alert-info">{{d}}</h4>
+			{% endif %}
+		</div>
+		
+			
+			
 			
 			
 	</div>

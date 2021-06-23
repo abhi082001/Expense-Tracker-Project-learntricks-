@@ -4,7 +4,7 @@ from .models import Uinput
 class Userentry(forms.ModelForm):
     class Meta:
         model = Uinput
-        fields = ['Month','Day','Amount']
+        fields = ['Amount']
         
         widgets = {
             
