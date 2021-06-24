@@ -17,9 +17,11 @@ def get_plot(x,y):
     plt.switch_backend('AGG')
     plt.figure(figsize = (6,4))
     #plt.title('Daily expenses')
-    new_list = range(math.floor(min(x)), math.ceil(max(x))+1)
+    
     plt.bar(x,y)
-    plt.xticks(new_list)
+    if len(x)!=0:
+        new_list = range(math.floor(min(x)), math.ceil(max(x))+1)
+        plt.xticks(new_list)
     plt.xlabel('Day')
     plt.ylabel('EXP Amount')
     plt.tight_layout()
