@@ -1403,10 +1403,27 @@
 				</form>
 				<br>
 				<form method="GET">
-					
+					<h5 style="color:black;font-size:20px;">Month and expense/income filter</h5>
+					Month:
+					<select name = "month">
+						<option disabled selected="true"> ---Add month---- </option>
+						<option value="January">January</option>
+						<option value="February">February</option>
+						<option value="March">March</option>
+						<option value="April">April</option>
+						<option value="May">May</option>
+						<option value="June">June</option>
+						<option value="July">July</option>
+						<option value="August">August</option>
+						<option value="September">September</option>
+						<option value="October">October</option>
+						<option value="November">November</option>
+						<option value="December">December</option>
+						<option value="All months">All months</option>
+					</select>
 					{{myFilter.form}}
 					<br>
-					<input type="submit" class="btn btn-success" value="Add filter"> <br> <br>
+					<input type="submit" class="btn btn-success" value="Search"> <br> <br>
 					
 					
 				</form>
@@ -1415,7 +1432,7 @@
 			</div>
 		
 			<div class = "col-sm-7">
-				<h4 class = "text-center alert alert-info"> Your expense and income table</h4>
+				<h4 class = "text-center alert alert-info"> {{a}}</h4>
 				{% if stu %}
 				<table class="table table-hover">
 						<thead>

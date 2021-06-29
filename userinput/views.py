@@ -16,6 +16,30 @@ def user_input(request):
     m=today.month
     d = today.day
     datetime.datetime.now()
+    if m==1:
+        mon = "January"
+    elif m==2:
+        mon = "February"
+    elif m==3:
+        mon = "March"
+    elif m==4:
+        mon = "April"
+    elif m==5:
+        mon = "May"
+    elif m==6:
+        mon = "June"
+    elif m==7:
+        mon = "July"
+    elif m==8:
+        mon = "August"
+    elif m==9:
+        mon = "September"
+    elif m==10:
+        mon = "October"
+    elif m==11:
+        mon = "November"
+    elif m==12:
+        mon = "December"
     if request.method == 'POST':
         
             
@@ -50,31 +74,73 @@ def user_input(request):
                 return HttpResponseRedirect('user_input')
             reg.save()
             fm = Userentry()
+            if request.user.is_authenticated:
+                log_user = request.user
+            else:
+                return HttpResponseRedirect('accounts/login')
+            stud = Uinput.objects.filter(user=log_user)
+            stud1 = stud.filter(Month = mon)
     else:
         fm = Userentry()
-    
-    
-    if request.user.is_authenticated:
-        log_user = request.user
-    else:
-        return HttpResponseRedirect('accounts/login')
-    
-    stud = Uinput.objects.filter(user=log_user)
-    myFilter = OrderFilter1(request.GET, queryset=stud)
-    stud = myFilter.qs
+        if request.user.is_authenticated:
+                log_user = request.user
+        else:
+            return HttpResponseRedirect('accounts/login')
+        stud = Uinput.objects.filter(user=log_user)            
+        stud1 = stud.filter(Month = mon)
+
+    savevalue = mon        
+    if request.GET.get('month'):
+        savevalue = request.GET.get('month')
+        
+        if savevalue != "All months" and savevalue != "p":
+            stud1 = stud.filter(Month=savevalue)
+        elif savevalue == "All months":
+            stud1 = stud
+        elif savevalue=='p':
+            stud1 = stud.filter(Month=mon)
+    myFilter = OrderFilter1(request.GET, queryset=stud1)
+    stud1 = myFilter.qs
     
     exps = exptable.objects.all()
    
     tags = tagtable.objects.all()
             
     
-    return render(request,'entry_expense.html',{'form':fm,'stu':stud,'myFilter': myFilter,'tags':tags,'f':int(m),'d':int(d)})
+    if savevalue!='p':
+        return render(request,'starter_expense.html',{'form':fm,'stu':stud1,'myFilter': myFilter,'tags':tags,'f':int(m),'d':int(d),'a':savevalue+' Expense and income','save':savevalue})
+    elif savevalue=='p':
+        return render(request,'starter_expense.html',{'form':fm,'stu':stud1,'myFilter': myFilter,'tags':tags,'f':int(m),'d':int(d),'a':mon + ' Expense and income','save':savevalue})
     
 def user_input1(request):
     today = date.today()
-    t=today.month
+    m=today.month
     d = today.day
     datetime.datetime.now()
+    if m==1:
+        mon = "January"
+    elif m==2:
+        mon = "February"
+    elif m==3:
+        mon = "March"
+    elif m==4:
+        mon = "April"
+    elif m==5:
+        mon = "May"
+    elif m==6:
+        mon = "June"
+    elif m==7:
+        mon = "July"
+    elif m==8:
+        mon = "August"
+    elif m==9:
+        mon = "September"
+    elif m==10:
+        mon = "October"
+    elif m==11:
+        mon = "November"
+    elif m==12:
+        mon = "December"
     if request.method == 'POST':
         
                
@@ -105,24 +171,41 @@ def user_input1(request):
                 return HttpResponseRedirect('user_input1')
             reg.save()
             fm = Userentry()
+            if request.user.is_authenticated:
+                log_user = request.user
+            else:
+                return HttpResponseRedirect('accounts/login')
+            stud = Uinput.objects.filter(user=log_user)
+            stud1 = stud.filter(Month = mon)
     else:
         fm = Userentry()
+        if request.user.is_authenticated:
+                log_user = request.user
+        else:
+            return HttpResponseRedirect('accounts/login')
+        stud = Uinput.objects.filter(user=log_user)
+        stud1 = stud.filter(Month = mon)
 
-    if request.user.is_authenticated:
-        log_user = request.user
-    else:
-        return HttpResponseRedirect('accounts/login')
-        
-    stud = Uinput.objects.filter(user=log_user)
-    myFilter = OrderFilter1(request.GET, queryset=stud)
-    stud = myFilter.qs
+    savevalue = mon        
+    if request.GET.get('month'):
+        savevalue = request.GET.get('month')
+        if savevalue != "All months" and savevalue != "p":
+            stud1 = stud.filter(Month=savevalue)
+        elif savevalue == "All months":
+            stud1 = stud
+        elif savevalue=='p':
+            stud1 = stud.filter(Month=mon)
+    myFilter = OrderFilter1(request.GET, queryset=stud1)
+    stud1 = myFilter.qs
     
     exps = exptable.objects.all()
    
     tags = tagtable_income.objects.all()
-            
-    
-    return render(request,'entry_income.html',{'form':fm,'stu':stud,'myFilter': myFilter,'tags':tags,'f':int(t),'d':int(d)})
+
+    if savevalue!='p':
+        return render(request,'starter_income.html',{'form':fm,'stu':stud1,'myFilter': myFilter,'tags':tags,'f':int(m),'d':int(d),'a':savevalue+' Expense and income','save':savevalue})
+    elif savevalue=='p':
+        return render(request,'starter_income.html',{'form':fm,'stu':stud1,'myFilter': myFilter,'tags':tags,'f':int(m),'d':int(d),'a':mon+ ' Expense and income','save':savevalue})
 
 def analytics(request):
     if request.user.is_authenticated:
@@ -201,15 +284,15 @@ def analytics(request):
 
     if request.GET.get('Month')!= None and request.GET.get('Month')!= '':
         if request.POST.get('bar'):
-            return render(request,'Analytics.html',{'stu':stud_2,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','chart':chart1,'d':'No record of expense in this month'})
+            return render(request,'starter_expanalytics.html',{'stu':stud_2,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','chart':chart1,'d':'No record of expense in this month'})
         elif request.POST.get('pie'):
-            return render(request,'Analytics.html',{'stu':stud_2,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','chart':chart2,'d':'No record of expense in this month'})
+            return render(request,'starter_expanalytics.html',{'stu':stud_2,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','chart':chart2,'d':'No record of expense in this month'})
         
         else:
-            return render(request,'Analytics.html',{'stu':stud_2,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','s':"** select either of these two buttons **",'chart':False,'d':'No record of expense in this month'})
+            return render(request,'starter_expanalytics.html',{'stu':stud_2,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','s':"** select either of these two buttons **",'chart':False,'d':'No record of expense in this month'})
     
     else:
-        return render(request,'Analytics.html',{'myFilter': myFilter,'d':'Add a month in month filter','sum_income':'-','sum_expense':'-','sum_diff':'-'})
+        return render(request,'starter_expanalytics.html',{'myFilter': myFilter,'d':"Add a month in month filter to see that month's amounts and graphs",'sum_income':'-','sum_expense':'-','sum_diff':'-'})
 
 def ianalytics(request):
     if request.user.is_authenticated:
@@ -266,14 +349,14 @@ def ianalytics(request):
     if request.GET.get('Month')!= None and request.GET.get('Month')!= '':
         
         if request.POST.get('bar1'):
-            return render(request,'Ianalytics.html',{'stu':stud_1,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','chart':chart3,'d':'No record of income in this month'})
+            return render(request,'starter_incanalytics.html',{'stu':stud_1,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','chart':chart3,'d':'No record of income in this month'})
         elif request.POST.get('pie1'):
-            return render(request,'Ianalytics.html',{'stu':stud_1,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','chart':chart4,'d':'No record of income in this month'})
+            return render(request,'starter_incanalytics.html',{'stu':stud_1,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','chart':chart4,'d':'No record of income in this month'})
         else:
-            return render(request,'Ianalytics.html',{'stu':stud_1,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','s':"** select either of these two buttons **",'chart':False,'d':'No record of income in this month'})
+            return render(request,'starter_incanalytics.html',{'stu':stud_1,'myFilter': myFilter,'sum_income':int(sum_income['p1']),'sum_expense':int(sum_expense['p2']),'sum_diff':sum_diff,'m':request.GET.get('Month') + ' month','s':"** select either of these two buttons **",'chart':False,'d':'No record of income in this month'})
     
     else:
-        return render(request,'Ianalytics.html',{'myFilter': myFilter,'d':'Add a month in month filter','sum_income':'-','sum_expense':'-','sum_diff':'-'})
+        return render(request,'starter_incanalytics.html',{'myFilter': myFilter,'d':"Add a month in month filter to see that month's amounts and graphs",'sum_income':'-','sum_expense':'-','sum_diff':'-'})
         
 
 

@@ -30,11 +30,12 @@
 					<div class="header_content d-flex flex-row align-items-center justify-content-start">
 						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
 							
+							
 							<nav class="main_nav">
 								<ul class="d-flex flex-row align-items-start justify-content-start">
 									
 									{% if user.is_authenticated %}
-									<p style="color:black;font-size:20px;"><strong> Hi, {{user.first_name}} </strong></p>
+									<p style="color:rgb(158, 107, 192);font-size:20px;"><strong> Hi, {{user.first_name}} </strong></p>
 									<li style="margin:15px;font-size:17px;"><a href="accounts/logout">Logout</a></li>
 									{% else %}
 									<li><a href="accounts/register">Register</a></li>
@@ -61,7 +62,7 @@
 
 				<!-- Slide -->
 				<div class="owl-item">
-					<div class="background_image" style="background-image:url({% static 'images/Peach.jpg' %})"></div>
+					<div class="background_image" style="background-image:url({% static 'images/modern_dark.jpg' %})"></div>
 					<div class="home_slider_content_container">
 						<div class="container">
 							<div class="row">
@@ -79,16 +80,16 @@
 			<div class="home_page_nav">
 				<ul class="d-flex flex-column align-items-end justify-content-end">
 					{% if user.is_authenticated %}
-					<h4><a href="userinput/user_input">Expense entry page<span></span></a></h4>
-					<h4><a href="userinput/user_input1">Income entry page<span></span></a></h4>
-					<h4><a href="userinput/analytics">Expense Analytics page<span></span></a></h4>
-					<h4><a href="userinput/ianalytics">Income Analytics page<span></span></a></h4>
+					<h4 ><a href="userinput/user_input" style="color:rgb(30, 133, 124);">Expense entry page<span></span></a></h4>
+					<h4 ><a href="userinput/user_input1" style="color:rgb(30, 133, 124);">Income entry page<span></span></a></h4>
+					<h4 ><a href="userinput/analytics" style="color:rgb(30, 133, 124);">Expense Analytics page<span></span></a></h4>
+					<h4 ><a href="userinput/ianalytics" style="color:rgb(30, 133, 124);">Income Analytics page<span></span></a></h4>
 					
 					{% else %} 
-					<h4><a href="accounts/login">Expense entry<span></span></a></h4>
-					<h4><a href="accounts/login">Income entry<span></span></a></h4>
-					<h4><a href="accounts/login">Expense Analytics<span></span></a></h4>
-					<h4><a href="accounts/login">Income Analytics<span></span></a></h4>
+					<h4 ><a href="accounts/login" style="color:rgb(30, 133, 124);">Expense entry<span></span></a></h4>
+					<h4 ><a href="accounts/login" style="color:rgb(30, 133, 124);">Income entry<span></span></a></h4>
+					<h4 ><a href="accounts/login" style="color:rgb(30, 133, 124);">Expense Analytics<span></span></a></h4>
+					<h4 ><a href="accounts/login" style="color:rgb(30, 133, 124);">Income Analytics<span></span></a></h4>
 					
 					{% endif %}
 					
