@@ -121,3 +121,4 @@ class tagtable_income(models.Model):
     tagname_1 = models.CharField(max_length = 70)
     Pid_1 = models.IntegerField()
 
+

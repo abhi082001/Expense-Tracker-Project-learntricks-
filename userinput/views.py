@@ -102,6 +102,8 @@ def user_input(request):
     myFilter = OrderFilter1(request.GET, queryset=stud1)
     stud1 = myFilter.qs
     
+    
+    stud1 = stud1.order_by('Month','-Day')
     exps = exptable.objects.all()
    
     tags = tagtable.objects.all()
@@ -198,6 +200,7 @@ def user_input1(request):
     myFilter = OrderFilter1(request.GET, queryset=stud1)
     stud1 = myFilter.qs
     
+    stud1 = stud1.order_by('Month','-Day')
     exps = exptable.objects.all()
    
     tags = tagtable_income.objects.all()

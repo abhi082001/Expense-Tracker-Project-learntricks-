@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'userinput.apps.UserinputConfig',
     'django_filters',
-    'matplotlib.pyplot'
+    'matplotlib.pyplot',
+    
 ]
 
 MIDDLEWARE = [
